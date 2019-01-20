@@ -24,7 +24,7 @@ public class SearchController {
 	@Autowired
 	private RecogniPredictionService searchService;
 	
-	@CrossOrigin(origins = "https://recognizr.xyz/*")
+	@CrossOrigin(origins = "https://recognizr.xyz")
 	@PostMapping("/search")
 	public ResponseEntity<?> compareWithPresentCollection(@RequestBody String imageBase64Encoded) {
 
