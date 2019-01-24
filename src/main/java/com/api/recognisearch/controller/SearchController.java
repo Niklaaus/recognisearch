@@ -24,20 +24,20 @@ public class SearchController {
 	@Autowired
 	private RecogniPredictionService searchService;
 	
-	@CrossOrigin(origins = "https://recognizr.xyz")
+	@CrossOrigin(origins = "*")
 	@PostMapping("/search")
 	public ResponseEntity<?> compareWithPresentCollection(@RequestBody String imageBase64Encoded) {
 
-		String directory = "";
+		/*String directory = "";
 		File uploadedImage = null;
-		BufferedOutputStream uploadStream = null;
+		BufferedOutputStream uploadStream = null;*/
 		HashMap<String, String> resp = new HashMap<>();
-		String filename = "uploaded";
+		/*String filename = "uploaded";*/
 		if (!imageBase64Encoded.isEmpty()) {
 			try {
 				int startOfBase64Data = imageBase64Encoded.indexOf(",") + 1;
 				imageBase64Encoded = imageBase64Encoded.substring(startOfBase64Data, imageBase64Encoded.length());
-				byte[] imageBytes = Base64.getDecoder().decode(imageBase64Encoded);
+				/*byte[] imageBytes = Base64.getDecoder().decode(imageBase64Encoded);
 				///////////////////////////////////////////////////////////////
 				// Creating the directory to store file/data/image ////////////
 				directory = System.getProperty("catalina.home");
@@ -50,14 +50,14 @@ public class SearchController {
 				uploadedImage = new File(fileSaveDir.getAbsolutePath() + File.separator + filename);
 				uploadStream = new BufferedOutputStream(new FileOutputStream(uploadedImage));
 				uploadStream.write(imageBytes);
-				
-				resp.putAll(searchService.getPredictionResults(uploadedImage.getAbsolutePath()));
+				*/
+				resp.putAll(searchService.getPredictionResults(imageBase64Encoded));
 
 				return new ResponseEntity(resp, HttpStatus.OK);
 			} catch (Exception e) {
 				resp.put("message", "Image was corrupt");
 				return new ResponseEntity(resp, HttpStatus.BAD_REQUEST);
-			} finally {
+			} /*finally {
 				if (uploadStream != null) {
 					try {
 						uploadStream.close();
@@ -66,7 +66,7 @@ public class SearchController {
 						e.printStackTrace();
 					}
 				}
-			}
+			}*/
 		}
 
 		else {

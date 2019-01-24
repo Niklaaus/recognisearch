@@ -12,14 +12,15 @@ import com.sun.jersey.api.client.WebResource;
 @Component
 public class RecogniPredictionService {
 
-	public Map<? extends String, ? extends String> getPredictionResults(String absolutePath) {
+	public Map<? extends String, ? extends String> getPredictionResults(String imageBase64Encoded) {
 
 		HashMap<String, String> resp = new HashMap<>();
 		try {
-			System.out.println("image path >>>>." + absolutePath);
+			/*System.out.println("image path >>>>." + absolutePath);*/
+			
 			Client client = Client.create();
 
-			WebResource webResource = client.resource("http://127.0.0.1:5000/predict?filepath=" + absolutePath);
+			WebResource webResource = client.resource("http://127.0.0.1:5000/predict?filepath=" + imageBase64Encoded);
 
 			ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
 			if (response.getStatus() == 200) {
